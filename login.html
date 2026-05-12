@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#065f46" />
+    <title>الدخول برابط سحري — الإدارة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"IBM Plex Sans Arabic"', "system-ui", "sans-serif"],
+            },
+            boxShadow: { soft: "0 10px 40px -12px rgba(15, 23, 42, 0.18)" },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="styles/custom.css" />
+  </head>
+  <body class="min-h-screen bg-slate-50 text-slate-900 antialiased hero-gradient">
+    <header class="glass-nav sticky top-0 z-50 shadow-sm">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+        <a href="index.html" class="flex items-center gap-3 rounded-xl outline-none ring-emerald-600 focus-visible:ring-2">
+          <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-800 text-sm font-bold text-white shadow-soft">MT</span>
+          <span class="text-sm font-semibold text-slate-800">العودة للوحة العامة</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="mx-auto flex max-w-md flex-col px-4 py-14 sm:px-6">
+      <div class="rounded-3xl border border-white/40 bg-white/75 p-8 shadow-2xl shadow-slate-900/5 backdrop-blur-xl ring-1 ring-white/60">
+        <h1 class="text-2xl font-bold text-slate-900">الدخول أو التسجيل</h1>
+        <p class="mt-2 text-sm text-slate-600">
+          أدخل بريدك الإلكتروني ليصلك <strong class="font-semibold text-slate-800">رابط سحري</strong> بدون كلمة مرور. إن لم يكن الحساب موجودًا، يُنشأ تلقائيًا عند أول دخول من الرابط.
+        </p>
+
+        <form id="login-form" class="mt-8 space-y-4">
+          <div>
+            <label for="email" class="mb-1 block text-sm font-medium text-slate-700">البريد الإلكتروني</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autocomplete="email"
+              inputmode="email"
+              class="focus-ring w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-sm shadow-inner transition focus:border-emerald-500"
+            />
+          </div>
+          <p id="login-hint" class="min-h-[1.25rem] text-sm text-red-600" role="status" aria-live="polite"></p>
+          <button
+            id="submit-login"
+            type="submit"
+            class="focus-ring w-full rounded-2xl bg-emerald-800 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-900/15 transition hover:bg-emerald-900"
+          >
+            إرسال رابط الدخول
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <script type="module">
+      import { initAuthPage } from "./js/auth.js";
+      initAuthPage();
+    </script>
+  </body>
+</html>
