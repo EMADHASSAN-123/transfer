@@ -1,4 +1,4 @@
-import { requireSession, signOut } from "./auth.js";
+import { requireAdminSession, signOut } from "./auth.js";
 import { getSupabase, getConfigError } from "./supabase.js";
 import { uploadTransferImage, deleteTransferImageByUrl } from "./upload.js";
 import { showToast, confirmDialog, setSkeletonTable, toggleSpinner } from "./ui.js";
@@ -135,7 +135,7 @@ async function renderList(supabase, tbody) {
 }
 
 export async function initDashboard() {
-  const ctx = await requireSession();
+  const ctx = await requireAdminSession();
   if (!ctx) return;
   if ("configMissing" in ctx && ctx.configMissing) {
     document.getElementById("config-banner")?.classList.remove("hidden");

@@ -1,3 +1,4 @@
+import { isEmailAllowedForAdmin } from "./auth.js";
 import { getSupabase, getConfigError } from "./supabase.js";
 import { showToast, setSkeletonCards, setSkeletonTable, openImageModal, openTransferDetailDialog } from "./ui.js";
 
@@ -216,6 +217,21 @@ function syncViewToggleUi() {
   }
 }
 
+/** @param {import("@supabase/supabase-js").SupabaseClient} supabase */
+async function syncAdminLoginNav(supabase) {
+  const link = document.getElementById("nav-admin-login");
+  if (!link) return;
+  link.classList.add("hidden");
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const email = session?.user?.email;
+  if (!email) return;
+  if (await isEmailAllowedForAdmin(supabase, email)) {
+    link.classList.remove("hidden");
+  }
+}
+
 async function loadTransfers(supabase, container, searchInput) {
   const { data, error } = await supabase
     .from("transfers")
@@ -250,6 +266,11 @@ export async function initPublicPage() {
     viewRoot.innerHTML = `<p class="text-center text-sm text-red-700">${escapeHtml(cfgErr?.message ?? "راجع إعدادات Supabase.")}</p>`;
     return;
   }
+
+  await syncAdminLoginNav(supabase);
+  supabase.auth.onAuthStateChange(() => {
+    void syncAdminLoginNav(supabase);
+  });
 
   syncViewToggleUi();
   wireDelegatedInteractions(viewRoot);

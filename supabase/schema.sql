@@ -108,3 +108,39 @@ create policy "transfer_images_auth_delete"
 -- Realtime: in Dashboard → Database → Replication, enable `public.transfers`
 -- (or run once if your project allows:)
 --   alter publication supabase_realtime add table public.transfers;
+
+-- ------------------------------------------------------------
+-- Admin allowlist (emails that may use admin login / dashboard)
+-- ------------------------------------------------------------
+create table if not exists public.admin_emails (
+  email text primary key
+);
+
+comment on table public.admin_emails is 'Lowercase-trimmed admin emails; no direct client reads — use is_allowed_admin_email().';
+
+alter table public.admin_emails enable row level security;
+
+-- No policies: anon/authenticated cannot read rows directly; RPC below uses SECURITY DEFINER.
+
+create or replace function public.is_allowed_admin_email(p_email text)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.admin_emails e
+    where lower(trim(e.email)) = lower(trim(p_email))
+  );
+$$;
+
+comment on function public.is_allowed_admin_email(text) is 'Returns true if p_email is listed in admin_emails (case-insensitive).';
+
+revoke all on function public.is_allowed_admin_email(text) from public;
+grant execute on function public.is_allowed_admin_email(text) to anon, authenticated;
+
+-- Seed admins in SQL Editor (example):
+--   insert into public.admin_emails (email) values ('admin@example.com')
+--   on conflict (email) do nothing;
