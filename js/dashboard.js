@@ -140,7 +140,7 @@ export async function initDashboard() {
   if ("configMissing" in ctx && ctx.configMissing) {
     document.getElementById("config-banner")?.classList.remove("hidden");
     const err = getConfigError();
-    showToast("error", err?.message ?? "أنشئ ملف js/config.js من config.example.js");
+    showToast("error", err?.message ?? "أنشئ ملف js/configone.js من config.example.js");
     return;
   }
 

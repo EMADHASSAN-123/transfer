@@ -51,7 +51,7 @@
 
 1. انسخ الملف:
 
-   `js/config.example.js` → `js/config.js`
+   `js/config.example.js` → `js/configone.js`
 
 2. عدّل القيم:
 
@@ -93,7 +93,7 @@ supabase/
   schema.sql        # الجدول + RLS + التخزين
 ```
 
-ملف `js/config.js` مُدرج في `.gitignore` حتى لا تُرفع المفاتيح بالخطأ.
+ملف `js/configone.js` مُدرج في `.gitignore` حتى لا تُرفع المفاتيح بالخطأ.
 
 ## الأمان
 
