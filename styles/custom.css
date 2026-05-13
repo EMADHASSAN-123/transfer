@@ -71,3 +71,26 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Public transfers table: stable column widths, smoother horizontal scroll on mobile */
+.transfers-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-gutter: stable;
+}
+
+.transfers-table {
+  table-layout: fixed;
+  contain: layout;
+}
+
+.transfers-table th.sortable-status button {
+  cursor: pointer;
+}
+
+.transfers-table th.sortable-status button:focus-visible {
+  outline: 2px solid rgb(5 150 105);
+  outline-offset: 2px;
+  border-radius: 0.375rem;
+}

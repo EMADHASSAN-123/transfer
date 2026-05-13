@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl">  
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -50,7 +50,7 @@
         <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">سجلات التحويل</h1>
       </section>
 
-      <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
         <label class="relative block flex-1 sm:max-w-md">
           <span class="sr-only">بحث باسم الشخص</span>
           <input
@@ -64,7 +64,19 @@
             <path stroke-width="2" stroke-linecap="round" d="M21 21l-4.3-4.3M11 18a7 7 0 100-14 7 7 0 000 14z" />
           </svg>
         </label>
-        <p class="text-sm text-slate-500"><span id="result-count">0</span> نتيجة</p>
+        <div class="flex flex-col gap-1.5 sm:min-w-[11rem]">
+          <label for="status-filter" class="text-xs font-semibold text-slate-600">الحالة</label>
+          <select
+            id="status-filter"
+            class="focus-ring w-full rounded-2xl border border-slate-200/80 bg-white/90 py-2.5 pe-3 ps-3 text-sm font-medium text-slate-800 shadow-sm backdrop-blur transition hover:border-emerald-200 focus:border-emerald-400 focus:outline-none"
+          >
+            <option value="sent">تم الإرسال</option>
+            <option value="pending">قيد الانتظار</option>
+            <option value="delivered">تم التسليم</option>
+            <option value="all">كل الحالات</option>
+          </select>
+        </div>
+        <p class="text-sm text-slate-500 sm:ms-auto"><span id="result-count">0</span> نتيجة</p>
       </div>
 
       <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between" role="toolbar" aria-label="طريقة عرض السجلات">
